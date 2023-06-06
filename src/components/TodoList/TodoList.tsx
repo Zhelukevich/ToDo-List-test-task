@@ -5,14 +5,22 @@ import './todoList.css'
 
 export interface ITodoListProps {
   items: ITodo[]
-
+  removeTodo: (id: number) => void
+  toggleTodo: (id: number) => void
 }
 
-export function TodoList({ items }: ITodoListProps) {
+export function TodoList({ items, removeTodo, toggleTodo }: ITodoListProps) {
   return (
     <ul>
       {
-        items.map(todo => <TodoItem key={todo.id} todo={todo} />)
+        items.map(todo => (
+          <TodoItem
+            removeTodo={removeTodo}
+            toggleTodo={toggleTodo}
+            key={todo.id}
+            todo={todo}
+          />
+        ))
       }
     </ul>
   );

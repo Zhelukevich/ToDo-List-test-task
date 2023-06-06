@@ -25,6 +25,13 @@ export function TodoForm({ todos, setTodos }: ITodoFormProps) {
     event.preventDefault();;
   }
 
+  const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
+
+    if (e.key === 'Enter') {
+      addTodo()
+    }
+
+  }
 
   const addTodo = () => {
     if (titleValue && descrValue) {
@@ -45,12 +52,14 @@ export function TodoForm({ todos, setTodos }: ITodoFormProps) {
   return (
     <form onSubmit={handleSubmit}>
       <input
+        onKeyDown={handleKeyDown}
         onChange={handleTitleChange}
         placeholder='Название'
         type="text"
         value={titleValue}
       />
       <input
+        onKeyDown={handleKeyDown}
         onChange={handleDescrChange}
         value={descrValue}
         placeholder='Описание'
