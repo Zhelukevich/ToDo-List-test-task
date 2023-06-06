@@ -42,6 +42,7 @@ export function TodoForm({ todos, setTodos }: ITodoFormProps) {
         complete: false,
         edit: false,
         completionDates: '',
+        filter: 'ALL'
       }])
       setTitleValue('');
       setDescrValue('');

@@ -4,16 +4,23 @@ import './todoList.css'
 
 
 export interface ITodoListProps {
-  items: ITodo[]
   setTodos: React.Dispatch<React.SetStateAction<ITodo[]>>
   todos: ITodo[]
+  filter: string
 }
 
-export function TodoList({ items, setTodos, todos }: ITodoListProps) {
+export function TodoList({ filter, setTodos, todos }: ITodoListProps) {
+  const displayItems = todos.filter(item => {
+    if (filter === 'ALL') return true;
+    if (filter === 'TODO') return !item.complete;
+    if (filter === 'DONE') return item.complete;
+    return false;
+  });
+
   return (
     <ul>
       {
-        items.map(todo => (
+        displayItems.map(todo => (
           <TodoItem
             setTodos={setTodos}
             todos={todos}

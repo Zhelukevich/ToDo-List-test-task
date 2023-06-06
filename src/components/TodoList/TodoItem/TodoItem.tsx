@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ITodo } from '../../../type/data';
 import './todoItem.css'
+import { currentDate } from '../../../utils/currentDate';
 
 
 interface ITodoItemProps {
@@ -13,6 +14,8 @@ export function TodoItem({ todo, setTodos, todos }: ITodoItemProps) {
   const [title, seTtitle] = useState(todo.title);
   const [description, setDescription] = useState(todo.description);
 
+  const [completionDates, setCompletionDates] = useState('');
+
   function handleTitleChange(event: React.ChangeEvent<HTMLInputElement>) {
     seTtitle(event.target.value);
   }
@@ -21,27 +24,27 @@ export function TodoItem({ todo, setTodos, todos }: ITodoItemProps) {
     setDescription(event.target.value);
   }
 
-
   const removeTodo = (id: number): void => {
     setTodos(todos.filter(todo => todo.id !== id))
   }
 
   const toggleTodo = (id: number): void => {
+    setCompletionDates(currentDate())
     setTodos(todos.map(todo => {
       if (todo.id !== id) return todo;
 
       return {
         ...todo,
         complete: !todo.complete,
+        completionDates: completionDates
       }
     }))
   }
 
-
   const editTodo = (id: number): void => {
+    setCompletionDates(currentDate())
     setTodos(todos.map(todo => {
       if (todo.id !== id) return todo;
-
       return {
         ...todo,
         edit: !todo.edit,
@@ -51,11 +54,12 @@ export function TodoItem({ todo, setTodos, todos }: ITodoItemProps) {
     }))
   }
 
-
   return (
     <li className='item'>
       <input type="checkbox" checked={todo.complete} onChange={() => toggleTodo(todo.id)} />
-      <p>{todo.completionDates}</p>
+      {todo.complete &&
+        <p>{todo.completionDates}</p>
+      }
       <hgroup>
         {todo.edit ?
           <input

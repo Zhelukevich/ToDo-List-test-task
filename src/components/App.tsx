@@ -7,15 +7,13 @@ import { TodoSort } from './TodoSort';
 
 function App() {
   const [todos, setTodos] = useState<ITodo[]>(LocalStorageData() || [])
+  const [filter, setFilter] = useState('ALL');
 
   function LocalStorageData() {
     const todosData = localStorage.getItem("todo");
     if (todosData === null) return undefined;
     return JSON.parse(todosData);
   }
-
-  console.log(LocalStorageData());
-
 
   useEffect(() => {
     localStorage.setItem("todo", JSON.stringify(todos));
@@ -30,11 +28,13 @@ function App() {
         setTodos={setTodos}
       />
       <div>
-        <TodoSort />
+        <TodoSort
+          setFilter={setFilter}
+        />
         <TodoList
+          filter={filter}
           setTodos={setTodos}
           todos={todos}
-          items={todos}
         />
       </div>
     </ContainerLayout>

@@ -5,4 +5,5 @@ export interface ITodo {
   complete: boolean;
   edit: boolean;
   completionDates: string;
+  filter: string
 }
