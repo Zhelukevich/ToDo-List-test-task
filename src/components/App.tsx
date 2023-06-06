@@ -3,6 +3,7 @@ import { ITodo } from '../type/data';
 import { ContainerLayout } from './ContainerLayout';
 import { TodoForm } from './TodoForm';
 import { TodoList } from './TodoList';
+import { TodoSort } from './TodoSort';
 
 function App() {
   const [todos, setTodos] = useState<ITodo[]>(LocalStorageData() || [])
@@ -20,20 +21,6 @@ function App() {
     localStorage.setItem("todo", JSON.stringify(todos));
   }, [todos]);
 
-  const removeTodo = (id: number): void => {
-    setTodos(todos.filter(todo => todo.id !== id))
-  }
-
-  const toggleTodo = (id: number): void => {
-    setTodos(todos.map(todo => {
-      if (todo.id !== id) return todo;
-
-      return {
-        ...todo,
-        complete: !todo.complete,
-      }
-    }))
-  }
 
   return (
     <ContainerLayout >
@@ -42,11 +29,14 @@ function App() {
         todos={todos}
         setTodos={setTodos}
       />
-      <TodoList
-        removeTodo={removeTodo}
-        toggleTodo={toggleTodo}
-        items={todos}
-      />
+      <div>
+        <TodoSort />
+        <TodoList
+          setTodos={setTodos}
+          todos={todos}
+          items={todos}
+        />
+      </div>
     </ContainerLayout>
   );
 }

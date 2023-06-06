@@ -1,22 +1,22 @@
 import { ITodo } from '../../type/data';
-import { TodoItem } from '../TodoItem';
+import { TodoItem } from './TodoItem';
 import './todoList.css'
 
 
 export interface ITodoListProps {
   items: ITodo[]
-  removeTodo: (id: number) => void
-  toggleTodo: (id: number) => void
+  setTodos: React.Dispatch<React.SetStateAction<ITodo[]>>
+  todos: ITodo[]
 }
 
-export function TodoList({ items, removeTodo, toggleTodo }: ITodoListProps) {
+export function TodoList({ items, setTodos, todos }: ITodoListProps) {
   return (
     <ul>
       {
         items.map(todo => (
           <TodoItem
-            removeTodo={removeTodo}
-            toggleTodo={toggleTodo}
+            setTodos={setTodos}
+            todos={todos}
             key={todo.id}
             todo={todo}
           />
