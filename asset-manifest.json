@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ToDo-List-test-task/static/css/main.ee6039f6.css",
+    "main.js": "/ToDo-List-test-task/static/js/main.dc952d79.js",
+    "index.html": "/ToDo-List-test-task/index.html",
+    "main.ee6039f6.css.map": "/ToDo-List-test-task/static/css/main.ee6039f6.css.map",
+    "main.dc952d79.js.map": "/ToDo-List-test-task/static/js/main.dc952d79.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ee6039f6.css",
+    "static/js/main.dc952d79.js"
+  ]
+}
