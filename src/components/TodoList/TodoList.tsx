@@ -1,26 +1,23 @@
+import { useContext } from 'react';
 import { ITodo } from '../../type/data';
 import { TodoItem } from './TodoItem';
+
 import './todoList.css'
+import { todosFilterContext } from '../../context/todosFilterContext';
 
 
 export interface ITodoListProps {
   setTodos: React.Dispatch<React.SetStateAction<ITodo[]>>
   todos: ITodo[]
-  filter: string
 }
 
-export function TodoList({ filter, setTodos, todos }: ITodoListProps) {
-  const displayItems = todos.filter(item => {
-    if (filter === 'ALL') return true;
-    if (filter === 'TODO') return !item.complete;
-    if (filter === 'DONE') return item.complete;
-    return false;
-  });
+export function TodoList({ setTodos, todos }: ITodoListProps) {
+  const { todosFilter } = useContext(todosFilterContext);
 
   return (
-    <ul>
+    <ul className='todo__list'>
       {
-        displayItems.map(todo => (
+        todosFilter.map(todo => (
           <TodoItem
             setTodos={setTodos}
             todos={todos}

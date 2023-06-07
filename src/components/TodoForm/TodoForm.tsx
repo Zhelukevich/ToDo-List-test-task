@@ -35,6 +35,14 @@ export function TodoForm({ todos, setTodos }: ITodoFormProps) {
 
   const addTodo = () => {
     if (titleValue && descrValue) {
+      // fetch('/api/tasks', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(todos),
+      // }).then(res => res.json())
+      //   .then(res => console.log(res))
+      //   .catch(err => console.log(err))
+
       setTodos([...todos, {
         id: Date.now(),
         title: titleValue,
@@ -42,7 +50,8 @@ export function TodoForm({ todos, setTodos }: ITodoFormProps) {
         complete: false,
         edit: false,
         completionDates: '',
-        filter: 'ALL'
+        filter: 'ALL',
+        sort: ''
       }])
       setTitleValue('');
       setDescrValue('');
@@ -51,22 +60,27 @@ export function TodoForm({ todos, setTodos }: ITodoFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        onKeyDown={handleKeyDown}
-        onChange={handleTitleChange}
-        placeholder='Название'
-        type="text"
-        value={titleValue}
-      />
-      <input
-        onKeyDown={handleKeyDown}
-        onChange={handleDescrChange}
-        value={descrValue}
-        placeholder='Описание'
-        type="text"
-      />
+    <form className='form' onSubmit={handleSubmit}>
+      <div className='form__block'>
+        <input
+          className='input'
+          onKeyDown={handleKeyDown}
+          onChange={handleTitleChange}
+          placeholder='Название'
+          type="text"
+          value={titleValue}
+        />
+        <input
+          className='input'
+          onKeyDown={handleKeyDown}
+          onChange={handleDescrChange}
+          value={descrValue}
+          placeholder='Описание'
+          type="text"
+        />
+      </div>
       <button
+        className='form__btn'
         onClick={addTodo}
       >
         Добавить

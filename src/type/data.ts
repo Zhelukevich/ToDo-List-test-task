@@ -6,4 +6,5 @@ export interface ITodo {
   edit: boolean;
   completionDates: string;
   filter: string
+  sort: string
 }

@@ -5,9 +5,11 @@ import { TodoForm } from './TodoForm';
 import { TodoList } from './TodoList';
 import { TodoSort } from './TodoSort';
 
+import './app.css'
+import { TodosFilterProvider } from '../context/todosFilterContext';
+
 function App() {
   const [todos, setTodos] = useState<ITodo[]>(LocalStorageData() || [])
-  const [filter, setFilter] = useState('ALL');
 
   function LocalStorageData() {
     const todosData = localStorage.getItem("todo");
@@ -21,23 +23,24 @@ function App() {
 
 
   return (
-    <ContainerLayout >
-      <h1 className='title'>ToDo List</h1>
-      <TodoForm
-        todos={todos}
-        setTodos={setTodos}
-      />
-      <div>
-        <TodoSort
-          setFilter={setFilter}
-        />
-        <TodoList
-          filter={filter}
-          setTodos={setTodos}
+    <TodosFilterProvider todos={todos}>
+      <ContainerLayout >
+        <h1 className='title'>ToDo List</h1>
+        <TodoForm
           todos={todos}
+          setTodos={setTodos}
         />
-      </div>
-    </ContainerLayout>
+        <div>
+          <TodoSort
+            todos={todos}
+          />
+          <TodoList
+            setTodos={setTodos}
+            todos={todos}
+          />
+        </div>
+      </ContainerLayout>
+    </TodosFilterProvider>
   );
 }
 
